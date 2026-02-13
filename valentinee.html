@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👑 Royal British Valentine · Anime Kingdom 👑</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* latar kerajaan inggris – paduan stone castle, bunga, dan pastel royal */
+    body {
+      min-height: 100vh;
+      font-family: 'Cormorant Garamond', 'Times New Roman', 'Quicksand', serif;
+      background: linear-gradient(145deg, #f3e3d3 0%, #ecd4c5 30%, #c1b7d1 70%, #a7bed3 100%);
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* elemen arsitektur kerajaan inggris – batu, pillar, ukiran */
+    .royal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .pillar-left, .pillar-right {
+      position: absolute;
+      width: 90px;
+      height: 85%;
+      background: rgba(210, 190, 170, 0.25);
+      backdrop-filter: blur(3px);
+      border: 3px solid #b59b80;
+      border-radius: 60px 60px 0 0;
+      bottom: 0;
+      box-shadow: 0 0 30px #dac09a, inset 0 0 30px #ffe6cd;
+    }
+    .pillar-left { left: 0; border-left: 6px solid #cab9a4; }
+    .pillar-right { right: 0; border-right: 6px solid #cab9a4; }
+
+    .stone-texture {
+      position: absolute;
+      top: 10%;
+      left: 5%;
+      right: 5%;
+      height: 160px;
+      background: repeating-linear-gradient(90deg, #ac9b8b22 0px, #ac9b8b22 4px, #cdb79e22 4px, #cdb79e22 8px);
+      border-radius: 30px;
+      transform: rotate(-1deg);
+      border: 2px dashed #ab8e6f;
+    }
+
+    .flag-uk {
+      position: absolute;
+      top: 15px;
+      right: 30px;
+      font-size: 3rem;
+      filter: drop-shadow(0 0 10px gold);
+      opacity: 0.6;
+      transform: rotate(5deg);
+      z-index: 5;
+    }
+
+    /* bunga khas inggris: mawar merah, lavender, bluebell */
+    .uk-flower {
+      position: absolute;
+      color: #b02f3f;
+      font-size: 2.4rem;
+      filter: drop-shadow(0 8px 6px #a06b7e);
+      opacity: 0.5;
+      animation: uk-float 15s infinite alternate ease-in-out;
+    }
+    .uk-flower1 { top: 15%; left: 3%; animation-duration: 20s; }
+    .uk-flower2 { bottom: 10%; right: 1%; color: #506d84; font-size: 3rem; animation-duration: 25s; }
+    .uk-flower3 { top: 40%; right: 6%; color: #ab7c5d; font-size: 3.5rem; }
+    .uk-flower4 { bottom: 20%; left: 8%; color: #af4c6b; }
+
+    @keyframes uk-float {
+      0% { transform: translate(0, 0) rotate(-4deg); }
+      100% { transform: translate(30px, -30px) rotate(10deg); }
+    }
+
+    /* bingkai utama kerajaan */
+    .royal-card {
+      position: relative;
+      z-index: 20;
+      max-width: 1200px;
+      width: 100%;
+      background: rgba(255, 245, 235, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 3px solid #f5e1ce;
+      border-radius: 80px 80px 50px 50px;
+      padding: 35px 25px 45px 25px;
+      box-shadow: 0 30px 50px #5f3f2e60, 0 0 0 4px #ede3c8 inset, 0 0 30px #fff5d0;
+      transition: all 0.4s;
+    }
+
+    /* header sambutan kerajaan */
+    .royal-welcome {
+      text-align: center;
+      margin-bottom: 25px;
+      border-bottom: 3px solid #c9afa0;
+      padding-bottom: 20px;
+    }
+
+    .greeting {
+      font-size: clamp(1.4rem, 6vw, 2.6rem);
+      background: linear-gradient(45deg, #5f2d3c, #2d4059, #3b2e40);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-shadow: 6px 6px 0 #ffe0e0, 0 12px 20px #e0b0c0;
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      word-break: break-word;
+    }
+
+    .crown {
+      font-size: 3.2rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 16px gold);
+      display: inline-block;
+      animation: crownGlow 3s infinite alternate;
+    }
+
+    @keyframes crownGlow {
+      0% { transform: rotate(-5deg) scale(1); filter: drop-shadow(0 0 8px #ffb347); }
+      100% { transform: rotate(5deg) scale(1.1); filter: drop-shadow(0 0 25px #ffdb9f); }
+    }
+
+    .sub-greeting {
+      font-size: 1.5rem;
+      color: #623f55;
+      font-style: italic;
+      background: rgba(255, 255, 240, 0.5);
+      display: inline-block;
+      padding: 0.3rem 2rem;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
+      margin-top: 12px;
+      border: 2px solid #fff2e4;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    /* konten utama: kerajaan + anime chibi */
+    .kingdom-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
+
+    /* karakter anime chibi ala kerajaan inggris (dengan pakaian bangsawan) */
+    .royal-chibi {
+      position: relative;
+      width: 300px;
+      height: 340px;
+      cursor: pointer;
+      filter: drop-shadow(0 20px 20px #a3725b);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .royal-chibi:hover {
+      transform: scale(1.04) translateY(-12px);
+      filter: drop-shadow(0 25px 30px #ad5880);
+    }
+
+    .chibi-face {
+      position: absolute;
+      width: 170px;
+      height: 160px;
+      background: radial-gradient(circle at 35% 35%, #feeac0, #f9cfb0);
+      border-radius: 50% 50% 45% 45%;
+      top: 20px;
+      left: 65px;
+      border: 3px solid #c8936e;
+      box-shadow: 0 10px 0 #a57251, 0 16px 25px #ffcfb0;
+    }
+
+    /* mata berkedip ala anime */
+    .royal-eye-left, .royal-eye-right {
+      position: absolute;
+      width: 28px;
+      height: 34px;
+      background: #30271e;
+      border-radius: 50%;
+      top: 60px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px #4d3e2e;
+      animation: royalBlink 4.8s infinite ease-in-out;
+    }
+    .royal-eye-left { left: 90px; }
+    .royal-eye-right { left: 158px; }
+
+    .royal-lid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #f9cfb0;
+      top: -100%;
+      left: 0;
+      border-radius: 50%;
+      animation: royalBlinkLid 4.8s infinite ease-in-out;
+    }
+
+    @keyframes royalBlink {
+      0%, 90%, 100% { transform: scaleY(1); }
+      93%, 97% { transform: scaleY(0.1); }
+    }
+    @keyframes royalBlinkLid {
+      0%, 90%, 100% { top: -100%; }
+      93%, 97% { top: 0; }
+    }
+
+    .royal-sparkle {
+      position: absolute;
+      width: 10px;
+      height: 15px;
+      background: white;
+      border-radius: 50%;
+      filter: blur(3px);
+      top: 48px;
+      left: 100px;
+      box-shadow: 0 0 18px white, 0 0 30px #ffc1cc;
+    }
+    .royal-sparkle.right { left: 168px; }
+
+    .royal-blush {
+      position: absolute;
+      width: 30px;
+      height: 16px;
+      background: #f59094;
+      border-radius: 50%;
+      filter: blur(6px);
+      opacity: 0.6;
+      top: 104px;
+    }
+    .blush-l { left: 70px; }
+    .blush-r { left: 168px; }
+
+    .mouth-royal {
+      position: absolute;
+      width: 48px;
+      height: 24px;
+      border-bottom: 5px solid #a14646;
+      border-radius: 0 0 30px 30px;
+      top: 120px;
+      left: 116px;
+      transition: 0.3s;
+    }
+    .royal-chibi:hover .mouth-royal {
+      border-bottom: 7px solid #c1315a;
+      width: 52px;
+      left: 114px;
+    }
+
+    /* rambut aristocratic */
+    .royal-hair-main {
+      position: absolute;
+      width: 120px;
+      height: 70px;
+      background: #a6552b;
+      background: linear-gradient(145deg, #c47b4d, #9f5835);
+      border-radius: 80% 20% 60% 40%;
+      top: 0px;
+      left: 90px;
+      transform: rotate(3deg);
+      box-shadow: 0 10px 0 #6f3e21;
+      clip-path: polygon(15% 0, 85% 0, 75% 90%, 25% 90%);
+    }
+    .royal-hair-side {
+      position: absolute;
+      width: 40px;
+      height: 80px;
+      background: #b15f36;
+      border-radius: 50%;
+      top: 20px;
+      left: 40px;
+      transform: rotate(-15deg);
+      box-shadow: -6px 8px 0 #8b4d2b;
+    }
+    .royal-hair-side.right {
+      left: 206px;
+      transform: rotate(15deg);
+      box-shadow: 6px 8px 0 #8b4d2b;
+    }
+
+    /* tiara/ mahkota kecil */
+    .tiara {
+      position: absolute;
+      top: -8px;
+      left: 140px;
+      font-size: 3rem;
+      filter: drop-shadow(0 8px 12px #f7d970);
+      transform: rotate(-5deg);
+      z-index: 30;
+      animation: tiaraWobble 5s infinite alternate;
+    }
+    @keyframes tiaraWobble {
+      0% { transform: rotate(-8deg) translateY(0); }
+      100% { transform: rotate(2deg) translateY(-5px); }
+    }
+
+    /* gaun bangsawan inggris */
+    .royal-dress {
+      position: absolute;
+      width: 170px;
+      height: 140px;
+      background: #dcd3ff;
+      background: linear-gradient(145deg, #edd3f0, #d9b8e0);
+      border-radius: 50% 50% 40% 40% / 60% 60% 30% 30%;
+      top: 170px;
+      left: 65px;
+      border: 4px solid #b28bbd;
+      box-shadow: 0 16px 0 #966e9e, 0 22px 30px #d9abd0;
+    }
+
+    /* lengan dengan animasi kecil */
+    .royal-arm-left, .royal-arm-right {
+      position: absolute;
+      width: 45px;
+      height: 80px;
+      background: #edd3f0;
+      border-radius: 40% 40% 60% 60%;
+      top: 175px;
+      border: 3px solid #b28bbd;
+      transform-origin: top center;
+      animation: royalWave 4s infinite alternate ease-in-out;
+    }
+    .royal-arm-left { left: 35px; transform: rotate(15deg); }
+    .royal-arm-right { left: 215px; transform: rotate(-15deg); animation-delay: 0.6s; }
+
+    @keyframes royalWave {
+      0% { transform: rotate(10deg) translateY(0); }
+      100% { transform: rotate(25deg) translateY(-8px); }
+    }
+
+    .royal-hand {
+      position: absolute;
+      width: 27px;
+      height: 27px;
+      background: #fed7b0;
+      border-radius: 50%;
+      bottom: -8px;
+      left: 6px;
+      border: 3px solid #b28bbd;
+    }
+    .royal-arm-right .royal-hand { left: auto; right: 6px; }
+
+    /* bunga kerajaan dan ucapan sayang */
+    .love-words {
+      flex: 1;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .message-royal {
+      background: rgba(255, 240, 230, 0.6);
+      backdrop-filter: blur(6px);
+      border-radius: 100px 100px 100px 100px;
+      padding: 20px 35px;
+      border: 3px solid #ffd9df;
+      box-shadow: 0 20px 30px #ce98a7;
+      transform: rotate(0.5deg);
+      transition: 0.3s;
+    }
+    .message-royal:hover {
+      transform: rotate(0deg) scale(1.02);
+      background: #ffeef5dd;
+    }
+
+    .message-royal p {
+      font-size: 2rem;
+      font-family: 'Great Vibes', cursive;
+      color: #511f3a;
+      text-shadow: 3px 3px 0 #fbc1cf;
+    }
+    .message-royal .heart-words {
+      font-size: 3rem;
+      line-height: 1;
+      letter-spacing: 8px;
+    }
+
+    .uk-quote {
+      font-size: 1.6rem;
+      background: #38536b30;
+      border-left: 8px solid #ab2150;
+      padding: 15px 25px;
+      border-radius: 30px 8px 30px 8px;
+      color: #2c1e29;
+      font-weight: 600;
+      backdrop-filter: blur(5px);
+      text-align: center;
+    }
+
+    /* bunga-bunga mengambang di area kerajaan */
+    .royal-flowers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 28px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .royal-flower-item {
+      font-size: 3rem;
+      filter: drop-shadow(0 10px 14px #a54f73);
+      animation: royalFloat 7s infinite alternate ease-in-out;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .royal-flower-item:hover {
+      transform: scale(1.3) rotate(10deg);
+      filter: drop-shadow(0 0 24px #ffacd5);
+    }
+
+    @keyframes royalFloat {
+      0% { transform: translateY(0) rotate(-6deg); }
+      100% { transform: translateY(-30px) rotate(8deg); }
+    }
+
+    /* bunga jatuh (rose, sakura, royal hearts) */
+    .falling-royal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 40;
+    }
+
+    .fall-royal-item {
+      position: absolute;
+      font-size: 2.2rem;
+      color: #e1a0b4;
+      animation: fallRoyal 12s linear infinite;
+      filter: drop-shadow(0 0 10px #ffacbe);
+    }
+
+    .fr1 { left: 8%; animation-duration: 10s; animation-delay: 0s; }
+    .fr2 { left: 28%; animation-duration: 14s; animation-delay: 2s; font-size: 3rem; }
+    .fr3 { left: 55%; animation-duration: 11s; animation-delay: 0.8s; }
+    .fr4 { left: 78%; animation-duration: 16s; animation-delay: 3s; font-size: 2.8rem; }
+    .fr5 { left: 92%; animation-duration: 9s; animation-delay: 1s; }
+    .fr6 { left: 15%; animation-duration: 18s; animation-delay: 4s; }
+
+    @keyframes fallRoyal {
+      0% { top: -10%; opacity: 0.9; transform: rotate(0deg); }
+      100% { top: 110%; opacity: 0.2; transform: rotate(360deg); }
+    }
+
+    /* footer dan tombol musik */
+    .royal-footer {
+      margin-top: 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: #fffcf0aa;
+      backdrop-filter: blur(10px);
+      border-radius: 100px;
+      padding: 16px 30px;
+      border: 3px solid #fff6ea;
+    }
+
+    .royal-footer span {
+      font-size: 1.6rem;
+      color: #6b3a4b;
+      font-weight: 600;
+      text-shadow: 2px 2px 0 #ffced9;
+    }
+
+    .music-button {
+      background: #986b7e;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: bold;
+      backdrop-filter: blur(6px);
+      background: rgba(200, 140, 170, 0.8);
+      border: 3px solid white;
+      box-shadow: 0 8px 0 #614154;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .music-button:hover {
+      background: #d68eb3;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 0 #5f3f50;
+    }
+
+    /* resposive */
+    @media (max-width: 650px) {
+      .royal-chibi { transform: scale(0.9); }
+    }
+  </style>
+  <!-- link google font untuk kesan klasik inggris -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- elemen latar kerajaan inggris -->
+  <div class="royal-overlay">
+    <div class="pillar-left"></div>
+    <div class="pillar-right"></div>
+    <div class="stone-texture"></div>
+    <div class="flag-uk">🏰👑🇬🇧</div>
+    <div class="uk-flower uk-flower1">🌹</div>
+    <div class="uk-flower uk-flower2">🌸</div>
+    <div class="uk-flower uk-flower3">💐</div>
+    <div class="uk-flower uk-flower4">🏵️</div>
+  </div>
+
+  <!-- falling petals khas valentine inggris -->
+  <div class="falling-royal">
+    <div class="fall-royal-item fr1">🌹</div>
+    <div class="fall-royal-item fr2">💖</div>
+    <div class="fall-royal-item fr3">🌸</div>
+    <div class="fall-royal-item fr4">👑</div>
+    <div class="fall-royal-item fr5">🌷</div>
+    <div class="fall-royal-item fr6">💕</div>
+  </div>
+
+  <!-- kartu utama kerajaan -->
+  <main class="royal-card">
+    <!-- kata sambutan kerajaan (royal greeting) -->
+    <div class="royal-welcome">
+      <span class="crown">👑</span>
+      <span class="greeting">  Her Majesty's Valentine  </span>
+      <span class="crown">👑</span>
+      <div class="sub-greeting">❝ A Royal Declaration of Love ❞</div>
+    </div>
+
+    <!-- konten: chibi kerajaan + ucapan sayang -->
+    <div class="kingdom-content">
+      <!-- karakter chibi anime bangsawan inggris -->
+      <div class="royal-chibi">
+        <div class="chibi-face">
+          <div class="royal-eye-left"><div class="royal-lid"></div></div>
+          <div class="royal-eye-right"><div class="royal-lid"></div></div>
+          <div class="royal-sparkle"></div>
+          <div class="royal-sparkle right"></div>
+          <div class="royal-blush blush-l"></div>
+          <div class="royal-blush blush-r"></div>
+          <div class="mouth-royal"></div>
+        </div>
+        <!-- rambut dan tiara -->
+        <div class="royal-hair-main"></div>
+        <div class="royal-hair-side"></div>
+        <div class="royal-hair-side right"></div>
+        <div class="tiara">👑</div>
+
+        <!-- gaun dan lengan -->
+        <div class="royal-dress"></div>
+        <div class="royal-arm-left"><div class="royal-hand"></div></div>
+        <div class="royal-arm-right"><div class="royal-hand"></div></div>
+
+        <!-- ekstra glow -->
+        <div style="position:absolute; top:120px; left:150px; width:70px; height:35px; background: radial-gradient(circle, #fff1e5, transparent); filter:blur(15px);"></div>
+      </div>
+
+      <!-- area ucapan sayang dan bunga kerajaan -->
+      <div class="love-words">
+        <div class="message-royal">
+          <p>My dearest,</p>
+          <div class="heart-words">💗👸💗</div>
+          <p>You are my royalty</p>
+        </div>
+
+        <div class="uk-quote">
+          “Shall I compare thee to a summer’s day?<br>
+          Thou art more lovely and more temperate...”<br>
+          <span style="font-size:1.2rem;">— William Shakespeare</span>
+        </div>
+
+        <!-- bunga-bunga megah (bisa di-hover) -->
+        <div class="royal-flowers">
+          <span class="royal-flower-item" title="English rose">🌹</span>
+          <span class="royal-flower-item" title="Royal heart">💖</span>
+          <span class="royal-flower-item" title="Sakura for my queen">🌸</span>
+          <span class="royal-flower-item" title="Crown of love">👑</span>
+          <span class="royal-flower-item" title="Love letter">💌</span>
+        </div>
+
+        <div style="font-size:2rem; color:#7d4b62; text-shadow: 2px 2px #ffcfcf;">✨ With love, from my heart to yours ✨</div>
+      </div>
+    </div>
+
+    <!-- footer dengan sapaan hangat dan tombol musik -->
+    <div class="royal-footer">
+      <span>💘 Happy Valentine's, Your Majesty of my heart 💘</span>
+      <button class="music-button" id="royalMusicBtn">🎵 Royal Orchestra (no autoplay)</button>
+    </div>
+  </main>
+
+  <!-- audio latar (lembut, non autoplay) -->
+  <audio id="royalMusic" loop preload="none">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    (function() {
+      // musik kerajaan lembut (tidak autoplay)
+      const music = document.getElementById('royalMusic');
+      const btn = document.getElementById('royalMusicBtn');
+      let musicOn = false;
+      
+      btn.addEventListener('click', function() {
+        if (musicOn) {
+          music.pause();
+          btn.textContent = '🎵 Royal Orchestra (no autoplay)';
+        } else {
+          music.volume = 0.2;  // sangat lembut
+          music.play().catch(e => {
+            alert('Klik izinkan jika musik ingin dinikmati ~');
+          });
+          btn.textContent = '⏸️ Hentikan musik kerajaan';
+        }
+        musicOn = !musicOn;
+      });
+
+      // efek tambahan: setiap bunga royal menampilkan pesan manis
+      const royalFlowers = document.querySelectorAll('.royal-flower-item');
+      royalFlowers.forEach(flower => {
+        flower.addEventListener('click', () => {
+          alert('👑 Thou hast stolen the king’s heart! 💕');
+        });
+      });
+
+      // karakter chibi juga memberi pesan
+      const chibiRoyal = document.querySelector('.royal-chibi');
+      chibiRoyal.addEventListener('click', () => {
+        alert('💗 My royal love, you are the treasure of my kingdom! 💗');
+      });
+
+    })();
+  </script>
+  <!-- hidden note for safety -->
+  <div style="display: none;">Valentine kerajaan inggris, anime chibi, ucapan shakespeare, pastel</div>
+</body>
+</html>
