@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffebee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        h1 { color: #d32f2f; margin-bottom: 10px; }
+        p { font-size: 1.2rem; color: #555; }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn { background-color: #ff4081; color: white; }
+        #noBtn { background-color: #9e9e9e; color: white; position: relative; }
+
+        .heart-animation {
+            font-size: 50px;
+            animation: beat 1s infinite;
+        }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Sweet message style */
+        #message {
+            display: none;
+            color: #d81b60;
+            font-weight: bold;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div class="heart-animation">❤️</div>
+        <div id="main-content">
+            <h1>I Love You!</h1>
+            <p>Will you be my Valentine?</p>
+            <div class="buttons">
+                <button id="yesBtn" onclick="showLove()">Yes</button>
+                <button id="noBtn" onmouseover="moveNo()">No</button>
+            </div>
+        </div>
+
+        <div id="message">
+            <h2>Yeay! ❤️</h2>
+            <p>Terima kasih sudah memilihku! Kamu adalah hal termanis yang pernah ada di hidupku. Happy Valentine's Day, Sayang! ✨</p>
+        </div>
+    </div>
+
+    <script>
+        function moveNo() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.clientWidth - 50);
+            const y = Math.random() * (window.innerHeight - btn.clientHeight - 50);
+            
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function showLove() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('message').style.display = 'block';
+            
+            // Tambahan confetti sederhana
+            for(let i=0; i<50; i++) {
+                createHeart();
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.opacity = Math.random();
+            heart.style.transition = 'transform 3s linear, opacity 3s';
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
+                heart.style.opacity = '0';
+            }, 100);
+
+            setTimeout(() => { heart.remove(); }, 3000);
+        }
+    </script>
+</body>
+</html>
